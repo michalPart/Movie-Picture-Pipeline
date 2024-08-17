@@ -51,7 +51,7 @@ jobs:
       - name: Test
         run: npm test
         working-directory: ./starter/frontend
-  build:
+  BUILD-JO_:
     needs: [LINT-JOB, TEST_JOB]
     runs-on: ubuntu-latest
     steps:
