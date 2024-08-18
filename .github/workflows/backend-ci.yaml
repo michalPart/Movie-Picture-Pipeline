@@ -26,9 +26,9 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pip
       - name: Install dependencies2
-        run: pip install pylint
+        run: pip install flake9
       - name: Lint
-        run: pylint ./starter/backend
+        run: flake9 ./starter/backend
   BUILD:
     runs-on: ubuntu-latest
     steps:
