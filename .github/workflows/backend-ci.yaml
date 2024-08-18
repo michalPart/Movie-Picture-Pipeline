@@ -43,8 +43,7 @@ jobs:
             python -m pip install --upgrade pip
             pip install pytest
         - name: Test
-          run: pytest ./starter/backend/test_app.py
-          working-directory: ./starter/backend      
+          run: pytest ./test_app.py    
   BUILD:
     runs-on: ubuntu-latest
     steps:
