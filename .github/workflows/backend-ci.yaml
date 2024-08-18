@@ -1,0 +1,62 @@
+# Workflow name
+name: Backend Continuous Integration
+
+# Triggers for the workflow
+on:
+  # Manual trigger using the workflow_dispatch event
+  workflow_dispatch:
+  # Automatic trigger on pull request events targeting the main branch
+  push_request:
+    branches:
+      - main
+    paths:
+      - './starter/backend'
+  
+# Jobs defined in the workflow
+jobs:
+  LINT-JOB:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.14]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./starter/backend
+      - name: Lint
+        run: npm run lint
+        working-directory: ./starter/backend
+        
+  TEST_JOB:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.14]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./starter/backend
+      - name: Test
+        run: npm test
+        working-directory: ./starter/backend
+  BUILD-JO_:
+    needs: [LINT-JOB, TEST_JOB]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Build from Docker
+        run: docker build -t mp-backend:latest .
+        working-directory: ./starter/backend
