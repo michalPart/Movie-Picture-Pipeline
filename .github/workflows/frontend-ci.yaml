@@ -10,7 +10,7 @@ on:
     branches:
       - main
     paths:
-      - 'frontend/**'
+      - './starter/frontend'
   
 # Jobs defined in the workflow
 jobs:
