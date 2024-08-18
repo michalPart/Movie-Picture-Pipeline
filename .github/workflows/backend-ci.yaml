@@ -22,13 +22,13 @@ jobs:
       - name: Setup python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11
+          python-version: 3.8
       - name: Install dependencies
         run: python -m pip install --upgrade pip
       - name: Install dependencies2
-        run: pip install flake
+        run: pip install flake8
       - name: Lint
-        run: flake ./starter/backend
+        run: flake8 ./starter/backend
   BUILD:
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +37,7 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11
+          python-version: 3.8
       - name: install dependencies
         run: python -m pip install --upgrade pip
       - name: Build from Docker
