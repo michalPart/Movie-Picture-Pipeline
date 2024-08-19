@@ -45,6 +45,7 @@ jobs:
         - name: Test
           run: pytest ./test_app.py    
   BUILD:
+    needs: [LINT, TEST]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
