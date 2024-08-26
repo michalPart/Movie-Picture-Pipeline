@@ -80,8 +80,8 @@ jobs:
           context: ./starter/frontend
           push: true
           tags: |
-            nr.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
-            nr.dkr.ecr.us-east-1.amazonaws.com/frontend:${{ github.sha }}
+            521474520625.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
+            521474520625.dkr.ecr.us-east-1.amazonaws.com/frontend:${{ github.sha }}
 
   DEPLOY:
     runs-on: ubuntu-latest
