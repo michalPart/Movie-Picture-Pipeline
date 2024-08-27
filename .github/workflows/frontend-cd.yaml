@@ -75,8 +75,17 @@ jobs:
           tags: 
             ${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
             
-      - name: Deploy to Kubernetes
+      - name: Configure image
+        env:
+            EKS_CLUSTER: ${{ secrets.EKS_CLUSTER }}
+            ECR_REGISTRY: ${{ steps.ecr.outputs.registry }}
         run: |
-          kustomize edit set image frontend=${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
-          kubectl kustomize build           
+              cd ./k8s/
+              kustomize edit set image frontend=${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
+
+        
+      - name: Deploy Backend image to EKS Cluster
+        run: |
+              cd ./k8s/
+              kustomize build | kubectl apply -f -   
 
