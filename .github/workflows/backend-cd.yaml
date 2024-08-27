@@ -104,8 +104,8 @@ jobs:
           push: true
           tags: ${{ secrets.ECR_REGISTRY_B }}:latest
       - name: Update kubectl
+        run: 
           echo "update kubectl"
-          # run: |
           # aws eks update-kubeconfig --name cluster --region ${{ secrets.AWS_REGION }}
 
       - name: Deploy to Kubernetes
