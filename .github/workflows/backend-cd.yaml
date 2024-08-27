@@ -94,7 +94,7 @@ jobs:
 
       - name: Build Docker image
         run:
-          docker build -t ${{ secrets.ECR_REPOSITORY_B }}:${GITHUB_SHA} .
+          docker build -t ${{ secrets.ECR_REPOSITORY_B }}:${{ github.sha }} .
 
       - name: Login to ECR
         id: ecr_login
