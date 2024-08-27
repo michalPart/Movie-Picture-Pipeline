@@ -60,12 +60,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Configure AWS Credentials
-        run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws configure set default.region us-east-1
-      - name: Login to AWS ECR
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
@@ -73,19 +72,13 @@ jobs:
           context: ./starter/frontend
           push: true
           tags: 
-            ${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
-            
-      - name: Configure image
-        env:
-            EKS_CLUSTER: ${{ secrets.EKS_CLUSTER }}
-            ECR_REGISTRY: ${{ steps.ecr.outputs.registry }}
+            my-frontend:latest ${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
+      - name: Push Docker Image to ECR
         run: |
-              cd ./k8s/
-              kustomize edit set image frontend=${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
-
-        
-      - name: Deploy Backend image to EKS Cluster
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}
+          docker push ${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
+      - name: Deploy to Kubernetes
         run: |
-              cd ./k8s/
-              kustomize build | kubectl apply -f -   
-
+          cd k8s
+          kustomize edit set image frontend=${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
+          kustomize build | kubectl apply -f -
