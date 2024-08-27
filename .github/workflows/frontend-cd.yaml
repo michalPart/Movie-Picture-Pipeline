@@ -74,5 +74,5 @@ jobs:
           push: true
           tags: |
             ${{ secrets.ECR_REGISTRY_F }}:latest
-            ${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}:${{ github.sha }}
+            ${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
 
