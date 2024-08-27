@@ -104,5 +104,5 @@ jobs:
         with:
           context: ./starter/backend
           push: true
-          tags: 521474520625.dkr.ecr.us-east-1.amazonaws.com/backend:latest
+          tags: ${{ secrets.ECR_REGISTRY_B }}:latest
 
