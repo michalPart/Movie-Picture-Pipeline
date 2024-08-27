@@ -86,7 +86,7 @@ jobs:
       - name: Build Docker image
         run: |
           cd starter/frontend
-          docker build --build-arg REACT_APP_API_URL=${{ env.REACT_APP_API_URL }} -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REGISTRY_F }}:${GITHUB_SHA} .
+          docker build --build-arg REACT_APP_API_URL=${{ env.REACT_APP_API_URL }} -t ${{ secrets.ECR_REGISTRY_F }}:${GITHUB_SHA} .
       - name: login to ECR
         id: ecr_login
         uses: aws-actions/amazon-ecr-login@v2
@@ -96,7 +96,7 @@ jobs:
       - name: push image to ECR
         run: |
           cd starter/frontend
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REGISTRY_F }}:${GITHUB_SHA}
+          docker push ${{ secrets.ECR_REGISTRY_F }}:${GITHUB_SHA}
 
 
 
