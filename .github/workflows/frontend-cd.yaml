@@ -73,12 +73,4 @@ jobs:
           push: true
           tags: 
             ${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
-      - name: Push Docker Image to ECR
-        run: |
-          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}
-          docker push ${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
-      - name: Deploy to Kubernetes
-        run: |
-          cd k8s
-          kustomize edit set image frontend=${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
-          kustomize build | kubectl apply -f -
+
