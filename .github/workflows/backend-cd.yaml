@@ -93,8 +93,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Build Docker image
-        run: |
-          cd starter/backend
+        run:
           docker build -t ${{ secrets.ECR_REPOSITORY_B }}:${GITHUB_SHA} .
 
       - name: Login to ECR
