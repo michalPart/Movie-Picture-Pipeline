@@ -1,4 +1,4 @@
-name: Backend CD
+name: Backend - CD
 
 on:
   push:
@@ -93,9 +93,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-
-      - name: Login to AWS ECR
-        uses: aws-actions/amazon-ecr-login@v1
         
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
