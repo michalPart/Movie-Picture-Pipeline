@@ -72,7 +72,7 @@ jobs:
           context: ./starter/frontend
           push: true
           tags: 
-            my-frontend:latest ${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
+            ${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
       - name: Push Docker Image to ECR
         run: |
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}
