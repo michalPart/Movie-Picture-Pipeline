@@ -101,8 +101,14 @@ jobs:
           context: ./starter/backend
           push: true
           tags: ${{ secrets.ECR_REGISTRY_B }}:latest
+      - name: Update kubectl
+        # run: |
+          # aws eks update-kubeconfig --name cluster --region ${{ secrets.AWS_REGION }}
+
       - name: Deploy to Kubernetes
         run: |
-          kustomize edit set image backend=${{ secrets.ECR_REGISTRY_B }}:${{ github.sha }}
-          kustomize build | kubectl apply -f -
+          echo "deploy"
+          #cd k8s
+          #kustomize edit set image backend=${{ secrets.ECR_REGISTRY_B }}:${{ github.sha }}
+          #kustomize build | kubectl apply -f -
         shell: bash
