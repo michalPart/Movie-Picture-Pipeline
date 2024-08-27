@@ -92,9 +92,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Build Docker image
-        run:
-          docker build -t ${{ secrets.ECR_REPOSITORY_B }}:latest .
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./starter/backend
+          push: true
+          tags: 
+            ${{ secrets.ECR_REGISTRY_B }}:${{ github.sha }}
 
       - name: Login to ECR
         id: ecr_login
