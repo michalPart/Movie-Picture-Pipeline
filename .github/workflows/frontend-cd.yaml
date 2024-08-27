@@ -1,4 +1,4 @@
-name: Frontend Continuous Deployment
+name: Frontend CD
 
 on:
   push:
@@ -16,7 +16,6 @@ jobs:
         working-directory: starter/frontend
     steps:
       - name: Setup Project
-        uses: wallylannister/cd12354-Movie-Picture-Pipeline@main
         with:
           node-version: '18'
       - name: Run Tests
