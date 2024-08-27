@@ -1,10 +1,12 @@
 name: Backend CD
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
+    paths:
+      - 'starter/backend/**'  # Trigger only when files in the backend directory change
+  workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
   LINT:
