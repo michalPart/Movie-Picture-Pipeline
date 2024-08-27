@@ -93,10 +93,7 @@ jobs:
         with:
           mask-password: "true"
 
-      - name: push image to ECR
-        run: |
-          cd starter/frontend
-          docker push ${{ secrets.ECR_REGISTRY_F }}:${GITHUB_SHA}
+
 
 
 
