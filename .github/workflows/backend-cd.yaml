@@ -82,24 +82,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Build Docker Image
-        run: docker build -t my-backend:latest .
-      - name: Tag Docker Image
-        run: docker tag my-backend:latest ${{ secrets.ECR_REGISTRY_B }}:${{ github.sha }}
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-        
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           context: ./starter/backend
           push: true
-          tags: ${{ secrets.ECR_REGISTRY_B }}:latest
+          tags: 
+            ${{ secrets.ECR_REGISTRY_B }}:${{ github.sha }}
+
       - name: Update kubectl
         run: 
           echo "update kubectl"
