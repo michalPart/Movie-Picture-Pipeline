@@ -74,6 +74,17 @@ jobs:
           push: true
           tags: 
             ${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
+
+      - name: Configure k8s cluster
+        working-directory: starter/frontend/k8s
+        run: |
+            aws eks update-kubeconfig --name cluster --region us-east-1
+
+      - name: Set docker image
+        working-directory: starter/frontend/k8s
+        run: |
+          kustomize edit set image frontend=${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
+      
       - name: Deploy to kubernetes
         working-directory: starter/frontend/k8s
         run: |
