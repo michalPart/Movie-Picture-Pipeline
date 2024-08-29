@@ -33,12 +33,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd .starter/backend
+          cd starter/backend
           pipenv install
 
       - name: Lint
         run: |
-          cd .starter/backend
+          cd ./starter/backend
           pipenv run lint
 
   TEST:
@@ -63,12 +63,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd .starter/backend
+          cd ./starter/backend
           pipenv install
 
       - name: Run tests
         run: |
-          cd .starter/backend
+          cd ./starter/backend
           pipenv run test
 
   DEPLOY:
