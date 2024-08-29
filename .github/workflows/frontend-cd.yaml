@@ -75,9 +75,9 @@ jobs:
           tags: 
             ${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
       - name: Deploy to EKS
-        run:
-          cd .. &&
-          cd ./starter/frontend/k8s
-
+        run: |
+          cd k8s
+          kustomize edit set image frontend=${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
+          kustomize build | kubectl apply -f -
             
             
