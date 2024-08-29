@@ -106,8 +106,4 @@ jobs:
           tags: 
             ${{ secrets.ECR_REGISTRY_B }}:${{ github.sha }}
 
-      - name: Push image to ECR
-        run: 
-          docker push {{ secrets.ECR_REPOSITORY_B}}:${github.sha}
-
 
