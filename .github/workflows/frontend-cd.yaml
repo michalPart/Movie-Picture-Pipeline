@@ -76,7 +76,7 @@ jobs:
             ${{ secrets.ECR_REGISTRY_F }}:${{ github.sha }}
       - name: Deploy to EKS
         run:
-          echo "deployed"
+          echo "deployed" &&
           cd .. &&
           cd ./starter/frontend/k8s &&
 
