@@ -108,17 +108,6 @@ jobs:
 
       - name: Push image to ECR
         run: 
-          docker push {{ secrets.ECR_REPOSITORY_B}}:${GITHUB_SHA}
+          docker push {{ secrets.ECR_REPOSITORY_B}}:${github.sha}
 
 
-      - name: Update kubectl
-        run: 
-          echo "update kubectl"
-          # aws eks update-kubeconfig --name cluster --region ${{ secrets.AWS_REGION }}
-
-      - name: Deploy to Kubernetes
-        run: 
-          echo "deploy"
-          #cd k8s
-          #kustomize edit set image backend=${{ secrets.ECR_REGISTRY_B }}:${{ github.sha }}
-          #kustomize build | kubectl apply -f -
