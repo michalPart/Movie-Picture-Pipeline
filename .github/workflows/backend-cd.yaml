@@ -42,7 +42,6 @@ jobs:
           pipenv run lint
 
   TEST:
-    needs: LINT
     runs-on: ubuntu-latest
 
     steps:
